@@ -46,61 +46,61 @@ ELink407
 │   ├── 1-chapter28-wakeup.markdown  
 │   ├── 1-chapter29-RNG.markdown  
 │   ├── 1-chapter30-CRC.markdown  
-│   ├── 1-chapter31-CPU_UID.markdown  
+│   ├── 1-chapter31-CPU-UID.markdown  
 │   ├── 1-chapter32-DHT11.markdown  
 │   ├── 2-appendix1-sample.markdown  
-│   ├── 2-appendix2-cc2git.markdown 
+│   ├── 2-appendix2-cc2git.markdown  
 │   ├── ARM MDK安装简要说明.pdf  
 │   ├── img  
 │   │   ├── chapter0  
-│   │   ├── chapter01 
-│   │   ├── chapter02  
-|   │   ├── chapter03 
-│   │   ├── chapter05 
-│   │   ├── chapter06 
-│   │   ├── chapter10 
-│   │   ├── chapter13 
+│   │   ├── chapter01  
+│   │   ├── chapter02   
+|   │   ├── chapter03  
+│   │   ├── chapter05  
+│   │   ├── chapter06  
+│   │   ├── chapter10  
+│   │   ├── chapter13  
 │   │   ├── chapter14  
-│   │   ├── chapter15l 
-│   │   ├── chapter24 
+│   │   ├── chapter15  
+│   │   ├── chapter24  
 │   │   ├── chapter25  
-│   │   ├── chapter26 
+│   │   ├── chapter26  
 │   │   ├── chapter29  
 │   │   ├── chapter30  
-│   │   ├── chapter31  
-│   │   ├── chapter9 
-│   │   └── elink407 
-│   ├── img-source  
-│   └── sdcamp.pdf 
+│   │   ├── chapter31   
+│   │   ├── chapter9  
+│   │   └── elink407  
+│   ├── img-source   
+│   └── sdcamp.pdf  
 ├── SCH  
-│   ├── Audio_4334.pdf 
-│   ├── Audio_WM8978.pdf 
-│   ├── Elink407_V1.0.pdf  
-│   ├── Elink407_V1500312.pdf 
+│   ├── Audio4334.pdf  
+│   ├── AudioWM8978.pdf  
+│   ├── Elink407V1.0.pdf   
+│   ├── Elink407V1500312.pdf  
 │   ├── Ethernet.pdf  
-│   └── lcd_V0.2.pdf  
+│   └── lcdV0.2.pdf   
 ├── source  
-│   ├── STM32_Lib 
-│   │   ├── STM32F4x7_ETH_Driver 
-│   │   │   ├── inc  
-│   │   │   ├── Release_Notes.html 
+│   ├── STM32Lib  
+│   │   ├── STM32F4x7ETH-Driver  
+│   │   │   ├──inc  
+│   │   │   ├── Release-Notes.html  
 │   │   │   └── src  
-│   │   ├── STM32F4xx_DSP_StdPeriph_Lib  
-│   │   │   ├── _htmresc  
-│   │   │   ├── Libraries  
+│   │   ├── STM32F4xx-DSP-StdPeriph-Lib  
+│   │   │   ├── -htmresc  
+│   │   │   ├── Libraries   
 │   │   │   ├── MCD-ST Liberty SW License Agreement V2.pdf  
 │   │   │   ├── Project  
-│   │   ├── STM32_USB_Device_Library  
+│   │   ├── STM32-USB-Device-Library   
 │   │   │   ├── Class  
 │   │   │   ├── Core  
-│   │   │   └── Release_Notes.html  
-│   │   ├── STM32_USB_HOST_Library  
+│   │   │   └── Release-Notes.html  
+│   │   ├── STM32-USB-HOST-Library  
 │   │   │   ├── Class  
 │   │   │   ├── Core  
-│   │   │   └── Release_Notes.html  
-│   │   └── STM32_USB_OTG_Driver  
+│   │   │   └── Release-Notes.html  
+│   │   └── STM32-USB-OTG-Driver  
 │   │       ├── inc  
-│   │       ├── Release_Notes.html  
+│   │       ├── ReleaseNotes.html  
 │   │       └── src  
 │   ├── ucosIII  
 │   ├── 基础实验  
@@ -162,7 +162,7 @@ ELink407
 │       │   ├── inc  
 │       │   ├── proj  
 │       │   ├── src  
-│       │   └── Third_Party 
+│       │   └── Third_Party  
 │       ├── 05_audio_wm8978  
 │       │   ├── APP  
 │       │   ├── AUDIOCODEC  
@@ -191,22 +191,22 @@ ELink407
 │       └── keilkill.bat  
 ├── tools  
 │   ├── arm mdk  
-│   │   ├── Keil.STM32F4xx_DFP.1.0.6.pack 
+│   │   ├── Keil.STM32F4xxDFP.1.0.6.pack  
 │   │   ├── keygen.exe  
 │   │   ├── keygen.zip  
-│   │   └── mdk_510.exe  
-│   ├── elink_logo.bmp  
+│   │   └── mdk510.exe   
+│   ├── elinklogo.bmp   
 │   ├── Image2Lcd.rar  
 │   ├── putty.exe  
 │   ├── SecureCRT.rar  
 │   ├── stlink2  
 │   │   ├── drivers  
-│   │   │   ├── stsw-link008.zip 
-│   │   │   └── stsw-link009.zip  
-│   │   ├── STM32 ST-LINK Utility_v3.3.0.exe  
+│   │   │   ├── stsw-link008.zip  
+│   │   │   └── stsw-link009.zip   
+│   │   ├── STM32 ST-LINK Utilityv3.3.0.exe   
 │   │   └── stsw-link004.zip  
 │   └── usb2uart driver  
-│       ├── PL2303_Prolific_DriverInstaller_v1_9_0（WinXP）.zip  
+│       ├── PL2303ProlificriverInstaller19WinXP）.zip  
 │       └── PL-2303 Vista Driver Installer（Win7、8）.zip  
 └── 资源  
     ├── stm32cubef4.zip  
