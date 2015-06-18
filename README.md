@@ -2,7 +2,7 @@
 ###主要目录及说明###
 
 ELink407  
-├── datasheet 
+├── datasheet  
 │   ├── AT24C64.pdf  
 │   ├── CS4334.pdf  
 │   ├── LAN8720A.pdf  
@@ -25,7 +25,7 @@ ELink407
 │   ├── 1-chapter06-GPIO.markdown  
 │   ├── 1-chapter07-BUZZER.markdown  
 │   ├── 1-chapter08-BUTTON.markdown  
-│   ├── 1-chapter09-EXTI.markdown 
+│   ├── 1-chapter09-EXTI.markdown  
 │   ├── 1-chapter10-SYSTICH.markdown  
 │   ├── 1-chapter11-NVIC.markdown  
 │   ├── 1-chapter12-uart.markdown  
@@ -112,7 +112,7 @@ ELink407
 │   │   │   ├── IAR  
 │   │   │   ├── img  
 │   │   │   ├── MDK  
-│   │   │   └── __一些公共的sys文件 
+│   │   │   └── __一些公共的sys文件  
 │   │   ├── keilkill.bat  
 │   │   └── project  
 │   │       ├── 03_project  
@@ -123,9 +123,9 @@ ELink407
 │   │       ├── 10_button  
 │   │       ├── 11_uart  
 │   │       ├── 12_uart_DMA  
-│   │       ├── 13_systick 
+│   │       ├── 13_systick  
 │   │       ├── 14_NVIC  
-│   │       ├── 15_IWDG 
+│   │       ├── 15_IWDG  
 │   │       ├── 16_WWDG  
 │   │       ├── 17_ADC  
 │   │       ├── 18_IIC  
@@ -151,10 +151,10 @@ ELink407
 │       ├── 02_CAN  
 │       │   ├── board  
 │       │   ├── proj  
-│       │   └── user 
+│       │   └── user  
 │       ├── 03_SD  
-│       │   ├── board  
-│       │   ├── MALLOC  
+│       │   ├── board   
+│       │   ├── MALLOC   
 │       │   ├── proj  
 │       │   └── user  
 │       ├── 04_audio_4334  
@@ -179,7 +179,7 @@ ELink407
 │       │   ├── proj  
 │       │   ├── src  
 │       │   └── Third_Party  
-│       ├── bsp4Elink 
+│       ├── bsp4Elink  
 │       │   ├── inc  
 │       │   └── src  
 │       ├── common  
@@ -187,7 +187,7 @@ ELink407
 │       │   ├── IAR  
 │       │   ├── img  
 │       │   ├── MDK  
-│       │   └── __一些公共的sys文件 
+│       │   └── __一些公共的sys文件  
 │       └── keilkill.bat  
 ├── tools  
 │   ├── arm mdk  
