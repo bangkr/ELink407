@@ -157,7 +157,7 @@ LCD驱动成功后，再考虑一个问题，如果让LCD上能显示文本信�
                 PutPixel(120, 200, Black);	
                 delay_ms(1000);
 
-                LCD_DrawString(0, 0, (uint8_t*)"你好 Elink407", &Mode);
+                LCD_DrawString(0, 0, (uint8_t*)"你好 ELink407", &Mode);
                 delay_ms(1000);
 
                 LCD_DisplayNum(0, 80, 100, &Mode);

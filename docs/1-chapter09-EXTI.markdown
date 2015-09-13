@@ -1,7 +1,8 @@
-# EXTI验 #
+# 按键中断实验 #   
+
 上个一实验，我们通过CPU不断读取按键GPIO 输入寄存器的值，查询是否有按键按下，并做相应的控制操作，但是这种轮询的方式存在两个问题，首先浪费CPU的资源，无论按键是否发生，CPU都要做查询操作。其次，如果CPU的任务比较繁多，CPU有可能不能及时响应按键的请求，甚至不响应。解决这个问题，我们引入了中断机制，当按键按下以后，产生一个中断请求，CPU收到请求后，中断当前用户程序，转而执行中断响应代码。下面的案例就是在ELink407上实现按键中断控制LED灯。
 
-## 实验原理与基础知识 ##
+    ## 实验原理与基础知识 ##
 
 STM32F4 的每个 IO 都可以作为外部中断的中断输入口。 STM32F407 的中断控制器支持 22 个外部中断/事件请求。每个中断设有状态位，每个中断/事件都有独立的触发和屏蔽设置。 STM32F407的 22 个外部中断为：
 
@@ -131,11 +132,11 @@ EXTI_LineCmd使能中断线为DISABLE或 ENABLE。
 4）配置中断分组（NVIC），并使能中断。
 
         NVIC_InitTypeDef NVIC_InitStructure;
-        NVIC_InitStructure.NVIC_IRQChannel = EXTI2_IRQn;          //使能按键外部中断通道
+        NVIC_InitStructure.NVIC_IRQChannel = EXTI2_IRQn;     //使能按键外部中断通道
         NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x02;  //抢占优先级 2， 
         NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x02;    //响应优先级 2
         NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;      //使能外部中断通道
-        NVIC_Init(&NVIC_InitStructure);                           //中断优先级分组初始化
+        NVIC_Init(&NVIC_InitStructure);                      //中断优先级分组初始化
 
 5）编写中断服务函数。
 

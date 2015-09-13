@@ -109,7 +109,7 @@ SystemInit 函数开始先进行浮点运算单元设置，然后是复位 PLLCF
 
 ![](img/chapter05/1.1.2.png) 
 
-**位31:30**  MCO2[1:0]：微控制器时钟输出2 (Microcontroller clock output 2)由软件置1 和清零。时钟源选择可能会造成对MCO2 的干扰。强烈建议仅在复位后但在使能外部振荡器和PLL 之前来配置这些位。
+**位31:30**  `MCO2[1:0]：微控制器时钟输出2 (Microcontroller clock output 2)由软件置1 和清零。时钟源选择可能会造成对MCO2 的干扰。强烈建议仅在复位后但在使能外部振荡器和PLL 之前来配置这些位。
 
  * 00：选择系统时钟(SYSCLK) 输出到MCO2 引脚   
  * 01:选择PLLI2S 时钟输出到MCO2 引脚   

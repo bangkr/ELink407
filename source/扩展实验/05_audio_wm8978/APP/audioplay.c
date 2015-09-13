@@ -113,7 +113,7 @@ void audio_play(void)
 	WM8978_ADDA_Cfg(1,0);	//开启DAC
 	WM8978_Input_Cfg(0,0,0);//关闭输入通道
 	WM8978_Output_Cfg(1,0);	//开启DAC输出   
-	
+#if 0
  //	while(f_opendir(&wavdir,"0:/MUSIC"))//打开音乐文件夹
 	while(f_opendir(&wavdir,"0:/wav"))//打开音乐文件夹
  	{	    
@@ -177,9 +177,10 @@ void audio_play(void)
 		//Show_Str(60,190,240-60,16,fn,16,0);				//显示歌曲名字 
 		//audio_index_show(curindex+1,totwavnum);
 		//key=audio_play_song(pname); 			 		//播放这个音频文件
-		
-		key=audio_play_song("0:/wav/2.wav"); 			 		//播放这个音频文件
-		
+#endif 		
+		key=audio_play_song("0:/wav/1.wav"); 			 		//播放这个音频文件
+
+#if 0		
 		if(key==1<<2)		//上一曲
 		{
 			if(curindex)curindex--;
@@ -192,7 +193,9 @@ void audio_play(void)
 	} 											  
 	myfree(SRAMIN,wavfileinfo.lfname);	//释放内存			    
 	myfree(SRAMIN,pname);				//释放内存			    
-	myfree(SRAMIN,wavindextbl);			//释放内存	 
+	myfree(SRAMIN,wavindextbl);			//释放内存	
+
+#endif	
 } 
 //播放某个音频文件
 u8 audio_play_song(u8* fname)

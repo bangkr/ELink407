@@ -13,9 +13,9 @@ LCD显示图片的过程是将图片上每一个像数信息写到显存中，�
 
 制作位图数组
 
-利用tools目录中的image2lcd工具将elink_logo.bmp图片制作成数组文件logo.h，如图所示设置宽度和高度分别为126，400，设置输出灰度为24位，将图像数组到\基础实验\common\font\logo.h中。
+利用tools目录中的image2lcd工具将ELink_logo.bmp图片制作成数组文件logo.h，如图所示设置宽度和高度分别为126，400，设置输出灰度为24位，将图像数组到\基础实验\common\font\logo.h中。
 
-![](img/chapter15/1.1.1.png) 
+![](img/elink407/elink.png) 
 
 在lcd.c文件中添加LCD_Draw_Imag函数进行画图，同时在lcd.h文件中进行声明。
 
@@ -61,7 +61,7 @@ LCD显示图片的过程是将图片上每一个像数信息写到显存中，�
                 PutPixel(120, 200, Black);	
                 delay_ms(1000);
 
-                LCD_DrawString(0, 0, (uint8_t*)"你好 Elink407", &Mode);
+                LCD_DrawString(0, 0, (uint8_t*)"你好 ELink407", &Mode);
                 delay_ms(1000);
 
                 LCD_DisplayNum(0, 80, 100, &Mode);

@@ -9,9 +9,9 @@
 #include "stm32f4xx.h"
 
 
-#define  LCD_FONT
+//#define  LCD_FONT
 	 
-#define  LCD_IMAGE
+//#define  LCD_IMAGE
 	 
 	 
 	 

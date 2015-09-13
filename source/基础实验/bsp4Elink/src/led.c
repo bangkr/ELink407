@@ -41,3 +41,15 @@ void led_off(int ledx)
 	
 }
 
+void Led_toggle(unsigned char _no)
+{
+	if (_no == LED1)
+	{
+		GPIO_ToggleBits(GPIOA,GPIO_Pin_8);
+	}
+	else if (_no == LED2)
+	{
+		GPIO_ToggleBits(GPIOB,GPIO_Pin_8);
+	}
+}
+

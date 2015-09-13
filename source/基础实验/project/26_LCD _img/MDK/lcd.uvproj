@@ -359,7 +359,7 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>USE_STDPERIPH_DRIVER</Define>
+              <Define>USE_STDPERIPH_DRIVER,LCD_IMAGE,LCD_FONT</Define>
               <Undefine></Undefine>
               <IncludePath>.\user;..\..\..\common\MDK;..\..\..\bsp4Elink\inc;..\..\..\..\STM32_Lib\STM32F4xx_DSP_StdPeriph_Lib\Libraries\STM32F4xx_StdPeriph_Driver\inc;..\..\..\..\STM32_Lib\STM32F4xx_DSP_StdPeriph_Lib\Libraries\CMSIS\Include;..\..\..\..\STM32_Lib\STM32F4xx_DSP_StdPeriph_Lib\Libraries\CMSIS\Device\ST\STM32F4xx\Include;..\..\..\common\font</IncludePath>
             </VariousControls>

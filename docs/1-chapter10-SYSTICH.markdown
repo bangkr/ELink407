@@ -98,7 +98,8 @@ N 个时钟周期后产生一个滴答中断，需要 RELOAD = 99，比如我们
 用户可以在调用函数SysTick_Config()后通过函数 NVIC_SetPriority()修改优先级，函数NVIC_SetPriority()在文件core_cm4.h文件里面 通过下面的公式调整时基 
 
 			Reload Value = SysTick Counter Clock (Hz) x Desired Time base (s)   
-			Reload Value 是函数SysTick_Config()的参数，但是不能超过0xFFFFFF  
+            
+Reload Value 是函数SysTick_Config()的参数，但是不能超过0xFFFFFF   
 
 这个函数主要是实现嘀嗒定时器的配置，这里面有个对嘀嗒定时器优先级的默认设置，这里将其设置成了15系统最低优先级
 

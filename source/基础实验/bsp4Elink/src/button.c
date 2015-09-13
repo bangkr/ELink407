@@ -59,7 +59,7 @@ void EXTIX_Init(void)
 }
 
 
-//PIN6外部中断 9_5 服务程序
+//PIN6外部中断 9_5 服务程序  KEY4 = PD6
 void EXTI9_5_IRQHandler(void)
 { 
 	mydelay(10); //消抖
@@ -70,7 +70,7 @@ void EXTI9_5_IRQHandler(void)
 	EXTI_ClearITPendingBit(EXTI_Line6); //清除 LINE0 上的中断标志位 
 }
 
-//外部中断 2 服务程序
+//外部中断 2 服务程序 KEY3 = PE2
 void EXTI2_IRQHandler(void)
 { 
 	mydelay(10); //消抖
@@ -81,7 +81,7 @@ void EXTI2_IRQHandler(void)
 	EXTI_ClearITPendingBit(EXTI_Line2);//清除 LINE2 上的中断标志位 
 }
 
-//外部中断 3 服务程序
+//外部中断 3 服务程序  KEY2 = PE3
 void EXTI3_IRQHandler(void)
 { 
 	mydelay(10); //消抖
@@ -93,7 +93,7 @@ void EXTI3_IRQHandler(void)
 	EXTI_ClearITPendingBit(EXTI_Line3);   //清除 LINE3 上的中断标志位 
 }
 
-//外部中断 4 服务程序
+//外部中断 4 服务程序  KEY1= PE4
 void EXTI4_IRQHandler(void)
 {
 	mydelay(10); //消抖

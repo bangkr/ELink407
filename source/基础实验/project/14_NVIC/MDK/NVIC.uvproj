@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>systick</TargetName>
+      <TargetName>NVIC</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
@@ -45,7 +45,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\obj\</OutputDirectory>
-          <OutputName>button</OutputName>
+          <OutputName>NVIC</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -410,14 +410,14 @@
               <FilePath>..\..\..\..\STM32_Lib\STM32F4xx_DSP_StdPeriph_Lib\Libraries\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f40xx.s</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_it.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\common\MDK\stm32f4xx_it.c</FilePath>
-            </File>
-            <File>
               <FileName>system_stm32f4xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\STM32_Lib\STM32F4xx_DSP_StdPeriph_Lib\Libraries\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_it.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\stm32f4xx_it.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -449,16 +449,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\STM32_Lib\STM32F4xx_DSP_StdPeriph_Lib\Libraries\STM32F4xx_StdPeriph_Driver\src\misc.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f4xx_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\STM32_Lib\STM32F4xx_DSP_StdPeriph_Lib\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>bsp</GroupName>
           <Files>
-            <File>
-              <FileName>button.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\bsp4Elink\src\button.c</FilePath>
-            </File>
             <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
@@ -473,6 +473,16 @@
               <FileName>delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\bsp4Elink\src\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\bsp4Elink\src\uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_exti.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\bsp_exti.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -41,7 +41,11 @@ void delay_us(unsigned int uTime)
 	while(TimingDelay != 0); 	 
 }
 
-
+void delay(int second)
+{
+	delay_ms( second *1000);
+}
+	
 void mydelay(int delaytime)
 {
 	delay_ms(delaytime);

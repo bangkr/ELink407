@@ -455,11 +455,6 @@
           <GroupName>bsp</GroupName>
           <Files>
             <File>
-              <FileName>delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\bsp4Elink\src\delay.c</FilePath>
-            </File>
-            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\bsp4Elink\src\timer.c</FilePath>

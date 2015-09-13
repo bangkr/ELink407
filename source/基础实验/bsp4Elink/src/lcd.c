@@ -744,7 +744,7 @@ void LCD_DisplayNum(uint32_t x, uint32_t y, uint32_t Num, DrawMode *Mode)
 #endif
 
 
-#ifdef LCD_IMGAGE 
+#ifdef LCD_IMAGE 
 
 /**                                                                                         
  * @brief  œ‘ æ“ª∏±Õº∆¨                                                                     

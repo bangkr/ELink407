@@ -7,5 +7,6 @@
 void init_led(void);
 void led_on(int ledx);
 void led_off(int ledx);
+void Led_toggle(unsigned char _no);
 
 #endif

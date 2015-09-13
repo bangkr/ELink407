@@ -75,7 +75,7 @@ STM32F4 的单个 IO 最大可以提供 25mA 电流，而蜂鸣器的驱动电�
                 GPIO_SetBits(GPIOC,GPIO_Pin_0);   //不响 
         }
 
-将编写好的buzzer驱动分别保存在 \基础实验\bsp4Elink\inc\, \基础实验\bsp4Elink\src\ 目录中。
+将编写好的buzzer驱动分别保存在 \基础实验\bsp4ELink\inc\, \基础实验\bsp4ELink\src\ 目录中。
 
 (3) 编写案例测试代码main.c
  

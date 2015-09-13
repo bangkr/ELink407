@@ -8,7 +8,7 @@ LCD 液晶屏是 Liquid Crystal Display 的简称，屏幕能显示的基本原�
 
 ![](img/chapter24/1.1.1.png) 
 
-因此要在LCD上显示一幅画的过程就是在正确的位置写入正确的电压，如果要维持该画面的显示就需要保持该位置的电压，通常情况下LCD控制电路会完成定时刷新电压的工作，这个跟RAM控制器非常类似。但是根据LCD不一样，具体配置相应的控制寄存器。Elink407使用的是LCD模组是LX T30WH006T1，具体参见LCD的datasheet。
+因此要在LCD上显示一幅画的过程就是在正确的位置写入正确的电压，如果要维持该画面的显示就需要保持该位置的电压，通常情况下LCD控制电路会完成定时刷新电压的工作，这个跟RAM控制器非常类似。但是根据LCD不一样，具体配置相应的控制寄存器。ELink407使用的是LCD模组是LX T30WH006T1，具体参见LCD的datasheet。
 
 LCD与stm32F4通过FSMC（灵活的静态存储控制器）接口连接，FSMC，即灵活的静态存储控制器，能够与同步或异步存储器和 16 位 PC 存储器卡连接，STM32F4 的 FSMC 接口支持包括 SRAM、 NAND FLASH、 NOR FLASH 和 PSRAM 等存储器。FSMC 的框图。
 
@@ -30,11 +30,11 @@ STM32F4 的 FSMC 支持 8/16/32 位数据宽度，我们这里用到的 LCD 是 
 
 ![](img/chapter24/1.1.3.png) 
 
-FSMC 总共管理 1GB 空间，拥有 4 个存储块（Bank），LCD用到的是NOR/PSRAM块, 该区块可连接多达4 个NOR Flash 或PSRAM 存储器器件。此存储区域被划分为4 个 NOR/PSRAM 区域，带4 个专用片选信号,内 部 AHB 地址总 线HADDR[25:0]用来表示外部存储器地址,而HADDR[27:26] 位用于四个存储区域之中选择其中一个存储区域如表所示。
+FSMC 总共管理 1GB 空间，拥有 4 个存储块（Bank），LCD用到的是NOR/PSRAM块, 该区块可连接多达4 个NOR Flash 或PSRAM 存储器器件。此存储区域被划分为4 个 NOR/PSRAM 区域，带4 个专用片选信号,内 部 AHB 地址总 线`HADDR[25:0]`用来表示外部存储器地址,而`HADDR[27:26]` 位用于四个存储区域之中选择其中一个存储区域如表所示。
 
 ![](img/chapter24/1.1.4.png) 
 
-对于 NOR/PSRAM控制器，主要是通过 FSMC_BCRx、FSMC_BTRx 和 FSMC_BWTRx 寄存器设置（其中 x=1~4，对应 4 个区,Elink407 LCD使用的是1）。通过这 3 个寄存器，可以设置 FSMC 访问外部存储器的时序参数。
+对于 NOR/PSRAM控制器，主要是通过 FSMC_BCRx、FSMC_BTRx 和 FSMC_BWTRx 寄存器设置（其中 x=1~4，对应 4 个区,ELink407 LCD使用的是1）。通过这 3 个寄存器，可以设置 FSMC 访问外部存储器的时序参数。
 
 FSMC 的 NOR FLASH 控制器支持同步和异步突发两种访问方式。选用同步突发访问方式时，FSMC 将 HCLK(系统时钟)分频后，发送给外部存储器作为同步时钟信号 FSMC_CLK。此时需要的设置的时间参数有 2 个：
 
@@ -594,8 +594,8 @@ LCD使用的是FSMC NOR/SRAM Bank1，其所对应地址为0x60000000，宏定义
 
         #define LCD_BASE           ((uint32_t)(0x60000000))
         
-LCD的RS接地址A16，LCD使用的是 16 位数据宽度，所以 HADDR[0]并没有用到，只有 HADDR[25:1]是有效的，对应关
-系变为：HADDR[25:1] --> FSMC[24:0]，相当于右移了一位，故CMD地址为0x60020000，宏定义如下：
+LCD的RS接地址A16，LCD使用的是 16 位数据宽度，所以 `HADDR[0]`并没有用到，只有 `HADDR[25:1]`是有效的，对应关
+系变为：`HADDR[25:1] `--> `FSMC[24:0]`，相当于右移了一位，故CMD地址为0x60020000，宏定义如下：
 
         #define LCD_CMD_ADDR       ((uint32_t)(0x60020000))   
         

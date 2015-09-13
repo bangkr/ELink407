@@ -4,7 +4,7 @@ STM32F40xx 总共有 92 个中断 包括 10 个内核中断和 82 个可屏蔽�
 
 ## 实验原理与基础知识 ##
 
-Cortex-M4 内核有一个 8位的寄存器支持 128 级中断嵌套，用户可以通过这个寄存器设置中断的优先级，STM32F407 只使用了这个 8 位寄存器的高四位[7:4]，低四位取零，这样407只使用了 16 级中断嵌套。支持 5 种优先级分组，系统复位默认使用的是优先级分组 0，也就是没有抢占式优先级，只有子优先级。
+Cortex-M4 内核有一个 8位的寄存器支持 128 级中断嵌套，用户可以通过这个寄存器设置中断的优先级，STM32F407 只使用了这个 8 位寄存器的高四位`[7:4]`，低四位取零，这样407只使用了 16 级中断嵌套。支持 5 种优先级分组，系统复位默认使用的是优先级分组 0，也就是没有抢占式优先级，只有子优先级。
 
 关于这个抢占优先级和这个子优先级的说明：
 
@@ -18,9 +18,9 @@ Cortex-M4 内核有一个 8位的寄存器支持 128 级中断嵌套，用户可
 
  *  先是占先式优先级，其次是副优先级 
  
- *  占先式优先级决定是否会有中断嵌套 
+ *  占先式优先级决定是否会有中断嵌套 
 
- *  Reset、NMI、Hard Fault  优先级为负高于普通中断优先级)且不可调整 
+ *  Reset、NMI、Hard Fault  优先级为负高于普通中断优先级)且不可调整 
 
 **中断使能寄存器 NVIC_ISERx**
 
@@ -106,6 +106,119 @@ Cortex-M4 内核有一个 8位的寄存器支持 128 级中断嵌套，用户可
 
 ## 软件设计、开发 ##
 
+本实验验证了系统中断（比如 PendSV,SVC,SysTick 等）是和外部中断（比如 USART,SPI，USB 等）是同一个优先级设置系统，不存在系统优先级就比外部中断的优先级高。这个例子就是为此而生。整体功能如下： 
 
+按键 K2 按下：进入 K2 按键中断，如果 K2 按键中断的抢占优先级比嘀嗒定时器的抢占优先级低，那么嘀嗒定时器中断将会抢占按键中断，进入嘀嗒定时器中断后根据 K2 中断是否激活来设置变量ubPreemptionOccurred，从而来 LED 闪烁。 
+
+按键 K3 按下：进入 K3 按键中断，K2 按键中断的抢占优先级和嘀嗒定时器的抢占优先级翻转。如果此时四个 LED 在闪烁，由于变量 ubPreemptionOccurred 被清零，LED 闪烁停止。并且根据 K2 按键中断和嘀嗒定时器谁的优先级高用串口 1 打印相关信息，方便观察现象，从而方便操作。 
+
+下面详细的分析一下程序，这里按键只是实现按键中断这一个作用，进入中断设置相应函数， 然后退出中断，不做按键的识别。所以这个程序重点的说一下按键中断函数和主函数即可。
+
+*1 按键中断函数* 
+
+	void EXTI3_IRQHandler(void) 
+	{ 
+		if(EXTI_GetITStatus(EXTI_Line3) != RESET) 
+		{ 
+			EXTI_ClearITPendingBit(EXTI_Line3); /* 清除中断标志位 */ 
+		} 
+	
+		/* 按键K2按下 */ 
+		if(EXTI_GetITStatus(EXTI_Line3) != RESET) 
+		{ 
+			/* 这里简单的做一个延迟，防止按键抖动造成多次进入中断 */ 
+			Delay(10000000); 
+			/* 产生嘀嗒定时器中断 */ 
+			SCB->ICSR |= 0x04000000; 
+			EXTI_ClearITPendingBit(EXTI_Line8); /* 清除中断标志位 */ 
+			printf("K2按键按下\r\n"); 
+		} 
+	} 
+	void EXTI2_IRQHandler(void) 
+	{ 
+		NVIC_InitTypeDef NVIC_InitStructure; 
+		if(EXTI_GetITStatus(EXTI_Line11) != RESET) 
+		{ 
+			EXTI_ClearITPendingBit(EXTI_Line11); /* 清除中断标志位 */ 
+		} 
+		/* 按键K3按下 */ 
+		if(EXTI_GetITStatus(EXTI_Line13) != RESET) 
+		{ 
+			ubPreemptionPriorityValue = !ubPreemptionPriorityValue; 
+			ubPreemptionOccurred = 0; 
+			/* 这里简单的做一个延迟，防止按键抖动造成多次进入中断 */ 
+			Delay(10000000); 
+			/* 修改K1按键中断的优先级 */ 
+			NVIC_InitStructure.NVIC_IRQChannel = EXTI3_IRQn; 
+			NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = ubPreemptionPriorityValue; 
+			NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0; 
+			NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 
+			NVIC_Init(&NVIC_InitStructure); 
+			/* 配置嘀嗒定时器的抢占优先级和子优先级 */ 
+			NVIC_SetPriority(SysTick_IRQn, 
+					NVIC_EncodePriority(NVIC_GetPriorityGrouping(), !ubPreemptionPriorityValue, 0)); 
+			EXTI_ClearITPendingBit(EXTI_Line2); /* 清除中断标志位 */ 
+			printf("K3按键按下，嘀嗒定时器和K3按键的抢占优先级都翻转\r\n"); 
+			if(ubPreemptionPriorityValue == 0) 
+			{ 
+				printf("滴答定时器的中断不可以抢占K2按键中断，按下K2按键LED不闪烁\r\n"); 
+			} 
+			else 
+			{ 
+				printf("滴答定时器的中断可以抢占K2按键中断，按下K2按键LED闪烁\r\n"); 
+			} 
+		} 
+		if(EXTI_GetITStatus(EXTI_Line15) != RESET) 
+		{ 
+			EXTI_ClearITPendingBit(EXTI_Line15); /* 清除中断标志位 */ 
+		} 
+	} 
+
+这里为了说明问题，在中断函数里面加了一个延迟函数，用于滤波，防止按键的抖动造成多次进入中断，实际项目中切勿这么做，严重影响系统性能。同时为了方便大家观察现象，K3 按键按下会有相应的串口信息打印，从而方便大家操作。 在 K1 按键中断中，通过 SCB->ICSR |= 0x04000000;设置嘀嗒定时器中断挂起，如果滴答定时器的抢占优先级比 K2 按键中断的优先级高将发生中断嵌套。下面是嘀嗒定时器中断服务程序：
+
+	void SysTick_Handler(void) 
+	{ 
+		/* 如果按键K2中断被嘀嗒定时器抢占 */ 
+		if(NVIC_GetActive(EXTI3_IRQn) != 0) 
+		{ 
+			ubPreemptionOccurred = 1; 
+		} 
+	} 
+
+通过函数 NVIC_GetActive 来查询 K2 按键释放激活。 
+
+*2.  主函数*
+ 
+	int main(void)
+	{
+	
+		init_uart(); 	/* 初始化串口 */
+		init_button();
+		EXTIX_Init();
+		init_delay();
+		/* 针对不同的应用程序，添加需要的底层驱动模块初始化函数 */
+	
+		init_led(); 		/* 初始LED指示灯端口 */
+	
+	
+		/* 配置嘀嗒定时器的抢占优先级和子优先级 */
+		NVIC_SetPriority(SysTick_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), !ubPreemptionPriorityValue, 0));
+		/* 进入主程序循环体 */
+		while (1)
+		{
+			if(ubPreemptionOccurred != 0)
+			{
+				/* 翻转 LED1 */
+				Led_toggle(1);
+				Delay(0x5FFFF);
+	
+				/* 翻转 LED2 */
+				Led_toggle(2);
+				Delay(0x5FFFF);
+	
+			}
+		}
+	}
+	
 ## 软件下载、测试验证 ##
 

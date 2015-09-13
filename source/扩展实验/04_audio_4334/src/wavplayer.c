@@ -24,6 +24,7 @@ void Wavplay(void)
 //	f_open(&fileR, "0:/MUSIC/1.wav" , FA_READ);
 	f_open(&fileR, "0:/wav/1.wav" , FA_READ);
 	f_read(&fileR, buffer1, 1024, &BytesRead);
+	printf("file read ");
 	while(WaveParsing()) printf("file read error");
 
   	WaveLen = WAVE_Format.DataSize;

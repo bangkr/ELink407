@@ -144,7 +144,7 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
   //去掉注释，调用函数
-  TimingDelay_Decrement();
+   TimingDelay_Decrement();
 }
 
 /******************************************************************************/

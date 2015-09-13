@@ -6,13 +6,13 @@
 
 在学习前，用户必须掌握c语言语法、变量空间、程序空间、堆栈、c编译器和调试器工作原理等相关知识，也必须了解CPU内部Flash和内部RAM的特性和地址空间。为了方便广大初学者学习，我们对这些概念进行一些必要的说明。 
 
-首先，我们必须明确设计程序的最终目的是生成一个可用于烧写的文件（常见的就是hex格式，本文档的附录章节有hex文件格式说明），这个文件可以通过烧写软件烧写到CPU内部Flash。在CPU上电后，CPU的硬件取指系统会自动的读取并执行Flash中的指令序列。 
+首先，我们必须明确设计程序的最终目的是生成一个可用于烧写的文件，这个文件可以通过烧写软件烧写到CPU内部Flash。在CPU上电后，CPU的硬件取指系统会自动的读取并执行Flash中的指令序列。 
 
 “源文件“是指由汇编源文件(*.s)和c源文件（*.c、*.h）构成的文件集合。我们通过编辑器（比如UltraEdit、SourceInsight或者IDE开发环境自带的编辑器）来书写源文件。源文件经过编译器（*.s由汇编编译器负责编译，*.c、*.h由c编译器负责编译）编译后生成中间目标文件(*.obj)。每个源文件会对应一个同名的obj文件，这些obj文件中的程序地址以及变量地址是未定位的。之后，由连接器负责将这些*.obj文件链接为一个完整的目标文件（如axf文件），这个axf文件包含CPU可执行的二进制代码和一些必要的调试信息。生成axf文件后，我们就可以通过集成开发环境（IDE）提供的调试接口下载程序到Flash，并通过仿真器进行跟踪调试。为了便于产品批量烧写程序，我们可以借助于IDE提供的工具，将axf文件转换为可直接烧写的文件（如hex文件）。 
 
 “程序空间“指二进制可执行指令序列（包括一些常量）存放的空间，”变量空间“指程序运行时各种变量（局部的和全局的）以及堆栈的存放空间。程序空间可以定位在CPU内部Flash、CPU内部RAM、外部SRAM和外部NOR Flash。变量空间只能定位在CPU内部SRAM和外部SRAM。 
 
-在使用STM32开发产品时，程序空间必须定位在CPU内部Flash，因为上电后，CPU都是从内部Flash开始取值运行的。在调试开发阶段，为了节省程序装载时间和延长Flash寿命，可以将代码空间定位到CPU内部RAM或者外部SRAM。一个工程包含多个target的意义就在于此，可以方便地选择调试模式和最终成品模式两种连接配置。 
+在使用STM32开发产品时，程序空间必须定位在CPU内部Flash，因为上电后，CPU都是从内部Flash开始取值运行的。在调试开发阶段，为了节省程序装载时间和延长Flash寿命，可以将代码空间定位到CPU内部RAM或者外部SRAM。
 
 在c程序中，栈（stack）用来保存函数返回地址、局部变量空间分配。堆（heap）用于通过malloc之类函数给变量分配空间。栈和堆的大小需要根据用户的具体程序进行合理设置，过小的栈和堆会引起程序执行异常。 
 
@@ -26,12 +26,12 @@ C 语言位操作相信学过 C 语言的人都不陌生了,简而言之，就�
 
 C 语言支持如下 6 种位操作
 
-      | 运算符  | 含义     | 运算符 | 含义     |
+      | 运算符  | 含义     | 运算符 | 含义    |
       |  &      | 按位与   |  ~     |  取反   |
       |  |      | 按位或   |  <<    |  左移   |
       |  ^      | 按位异或 |  >>    |  右移   |
 
-这些与或非，取反，异或，右移，左移这些到底怎么回事，这里我们就不多做详细，相信 大家学 C 语言的时候都学习过了。如果不懂的话，可以百度一下，非常多的知识讲解这些操作符。下面我们想着重讲解位操作在单片机开发中的一些实用技巧。
+这些与或非，取反，异或，右移，左移这些到底怎么回事，这里我们就不多做详细，相信大家学 C 语言的时候都学习过了。如果不懂的话，可以百度一下，非常多的知识讲解这些操作符。下面我们想着重讲解位操作在单片机开发中的一些实用技巧。
 
 **1) 不改变其他位的值的状况下，对某几个位进行设值**
 
@@ -94,7 +94,7 @@ SR 寄存器的每一位都代表一个状态，某个时刻我们希望去设�
 
 比如要引用 usart1 的成员 BaudRate，方法是：usart1.BaudRate;结构体指针变量定义也是一样的，跟其他变量没有啥区别。
 
-例如：struct U_TYPE *usart3；//定义结构体指针变量 usart1;
+例如：struct U_TYPE *usart1；//定义结构体指针变量 usart1;
 
 结构体指针成员变量引用方法是通过“->”符号实现，比如要访问 usart3 结构体指针指向的结构体的成员变量 BaudRate,方法是：
 
@@ -240,7 +240,7 @@ static 修饰用来限定符号的作用域，分为修饰变量和修饰函数�
 
 static 修饰函数其作用域限于只在当前源文件中调用该函数，另外static 函数在内存中只有一份，普通函数在每个被调用中维持一份拷贝。
 
-static修饰变量可分为修饰全局变量和局部变量之分，static 局部变量只被初始化一次，下一次依据上一次结果值；tatic 全局变量只初使化一次，跟修饰函数一样，其作用域限于当前源文件，可以防止在其他文件单元中被引用，修改。
+static修饰变量可分为修饰全局变量和局部变量之分，static 局部变量只被初始化一次，下一次依据上一次结果值；static 全局变量只初使化一次，跟修饰函数一样，其作用域限于当前源文件，可以防止在其他文件单元中被引用，修改。
 
 #### volatile ####
 
@@ -814,15 +814,15 @@ Libraries
 
 在介绍一些关键文件之前，首先我们来看看一个基于固件库的 STM32F4 工程需要哪些关键文件，这些文件之间有哪些关联关系。其实这个可以从 ST 提供的英文版的 STM32F4 固件库说明里面找到。   
 
-*  ◆ core_cm4.h 文件位于\STM32F4xx_DSP_StdPeriph_Lib_V1.4.0\Libraries\CMSIS\Include 目录下面的，这个就是 CMSIS 核心文件，提供进入 M4 内核接口，这是 ARM 公司提供，对所有CM4 内核的芯片都一样。  
+*  ◆ core_cm4.h 文件位于\STM32F4xx_DSP_StdPeriph_Lib\Libraries\CMSIS\Include 目录下面的，这个就是 CMSIS 核心文件，提供进入 M4 内核接口，这是 ARM 公司提供，对所有CM4 内核的芯片都一样。  
 
-*  ◆ stm32f4xx.h 和 system_stm32f4xx.h 文件存放在文件夹\STM32F4xx_DSP_StdPeriph_Lib_V1.4.0\Libraries\CMSIS\Device\ST\STM32F4xx\Include 下面。    
+*  ◆ stm32f4xx.h 和 system_stm32f4xx.h 文件存放在文件夹\STM32F4xx_DSP_StdPeriph_Lib\Libraries\CMSIS\Device\ST\STM32F4xx\Include 下面。    
 
-*  ◆ system_stm32f4xx.h 是片上外设接入层系统头文件。主要是申明设置系统及总线时钟相关的函数。与其对应的源文件 system_stm32f4xx.c 在目录\STM32F4xx_DSP_StdPeriph_Lib_V1.4.0\Project\STM32F4xx_StdPeriph_Templates 可以找到。这个里面有一个非常重要的 SystemInit()函数申明，这个函数在我们系统启动的时候都会调用，用来设置系统的整个系统和总线时钟。    
+*  ◆ system_stm32f4xx.h 是片上外设接入层系统头文件。主要是申明设置系统及总线时钟相关的函数。与其对应的源文件 system_stm32f4xx.c 在目录\STM32F4xx_DSP_StdPeriph_Lib\Project\STM32F4xx_StdPeriph_Templates 可以找到。这个里面有一个非常重要的 SystemInit()函数申明，这个函数在我们系统启动的时候都会调用，用来设置系统的整个系统和总线时钟。    
 
 *  ◆ stm32f4xx.h 是 STM32F4 片上外设访问层头文件。这个文件就相当重要了，只要你做STM32F4 开发，你几乎时刻都要查看这个文件相关的定义。这个文件打开可以看到，里面非常多的结构体以及宏定义。这个文件里面主要是系统寄存器定义申明以及包装内存操作，对于这里是怎样申明以及怎样将内存操作封装起来的。  
 
-*  ◆ stm32f4xx_it.c,stm32f4xx_it.h 以及 stm32f4xx_conf.h 等 文 件 ， 我 们 可 以 从\STM32F4xx_DSP_StdPeriph_Lib_V1.4.0\Project\STM32F4xx_StdPeriph_Templates 文件夹中找到。这几个文件我们后面新建工程也有用到。stm32f4xx_it.c 和 stm32f4xx_it.h 里面是用来编写中断服务函数，中断服务函数也可以随意编写在工程里面的任意一个文件里面   
+*  ◆ stm32f4xx_it.c,stm32f4xx_it.h 以及 stm32f4xx_conf.h 等 文 件 ， 我 们 可 以 从\STM32F4xx_DSP_StdPeriph_Lib\Project\STM32F4xx_StdPeriph_Templates 文件夹中找到。这几个文件我们后面新建工程也有用到。stm32f4xx_it.c 和 stm32f4xx_it.h 里面是用来编写中断服务函数，中断服务函数也可以随意编写在工程里面的任意一个文件里面   
 
 *  ◆ stm32f4xx_conf.h 是外设驱动配置文件。 文件打开可以看到一堆的#include,这里你建立工程的时候，可以注释掉一些你不用的外设头文件。   
 
@@ -832,7 +832,7 @@ Libraries
 
 *  ◆ 对于文件 stm32f4xx_ppp.c 和 stm32f4xx_ppp.h，这就是 stm32F4 标准外设固件库对应的源文件和头文件。包括一些常用外设 GPIO,ADC,USART 等。
 
-*  ◆ 文件 Application.c 实际就是说是应用层代码。这个文件名称可以任意取了。我们工程中，直接取名为 main.c.实际上一个完整的 STM32F4 的工程光有上面这些文件还是不够的。还缺少非常关键的启动文件。STM32F4 的启动文件存放在目录\STM32F4xx_DSP_StdPeriph_Lib_V1.4.0\Libraries\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm 下面。对于不同型号的 STM32F4 系列对应的启动文件也不一样。我们的开发板是 STM32F407 系列所以我们选择的启动文件为startup_stm32f40_41xxx.s。  启动文件到底什么作用，其实我们可以打开启动文件进去看看。启动文件主要是进行堆栈之类的初始化，中断向量表以及中断函数定义。启动文件要引导进入main 函数。 Reset_Handler 中断函数是唯一实现了的中断处理函数，其他的中断函数基本都是死循环。   Reset_handler 在我们系统启动的时候会调用，下面让我们看看 Reset_handler 这段代码：
+*  ◆ 文件 Application.c 实际就是说是应用层代码。这个文件名称可以任意取了。我们工程中，直接取名为 main.c.实际上一个完整的 STM32F4 的工程光有上面这些文件还是不够的。还缺少非常关键的启动文件。STM32F4 的启动文件存放在目录\STM32F4xx_DSP_StdPeriph_Lib\Libraries\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm 下面。对于不同型号的 STM32F4 系列对应的启动文件也不一样。我们的开发板是 STM32F407 系列所以我们选择的启动文件为startup_stm32f40_41xxx.s。  启动文件到底什么作用，其实我们可以打开启动文件进去看看。启动文件主要是进行堆栈之类的初始化，中断向量表以及中断函数定义。启动文件要引导进入main 函数。 Reset_Handler 中断函数是唯一实现了的中断处理函数，其他的中断函数基本都是死循环。   Reset_handler 在我们系统启动的时候会调用，下面让我们看看 Reset_handler 这段代码：
 
         ; Reset handler
         Reset_Handler     PROC
@@ -853,7 +853,7 @@ RealView MDK开发套件源自德国Keil公司（后被ARM公司收购），是A
 
 ### ARM MDK安装 ###
 
-1、 在Elink407\tools\arm mdk目录下找到MDK_510.exe软件，双击mdk_510.exe应用程序，进入安装界面。依次选择“next”->“勾选同意协议，next”->“选择安装目录，next“->输入姓名、公司名、email信息(任意填写)->“next，等待安装”->“finish”。完成安装之后会弹出补丁安装界面，选择“OK“后，有提示部分补丁读取失败，直接点击确定忽略即可，如图所示：
+1、 在ELink407\tools\arm mdk目录下找到MDK_510.exe软件，双击mdk_510.exe应用程序，进入安装界面。依次选择“next”->“勾选同意协议，next”->“选择安装目录，next“->输入姓名、公司名、email信息(任意填写)->“next，等待安装”->“finish”。完成安装之后会弹出补丁安装界面，选择“OK“后，有提示部分补丁读取失败，直接点击确定忽略即可，如图所示：
 
 ![](img/chapter02/3.1.1.png) 
 
@@ -881,19 +881,19 @@ RealView MDK开发套件源自德国Keil公司（后被ARM公司收购），是A
 
 8、 点击“AddLIC”完成注册。 
 
-### 使用ARM MDK进行Elink407软件开发 ###
+### 使用ARM MDK进行ELink407软件开发 ###
 
 #### 第一个工程(工程模版目录结构) ####
 
 良好的目录结构是个好的习惯，这是我们基于固件库第一个工程，以后我们基于固件库开发都以此为工程模版组织代码。
 我们建立如下目录
-
-.
+  
+.    
 ├── STM32_Lib   
 │   └── __stm32标准库目录   
 ├── 基础实验   
-│   ├── bsp4Elink                             //编写好的驱动源代码   
-│   │   ├── inc   
+│   ├── bsp4ELink                             //编写好的驱动源代码   
+│   │   │   ├── inc   
 │   │   │   ├── __编写的头文件.h   
 │   │   └── src   
 │   │       ├── __编写的头文件.c   
@@ -1022,7 +1022,7 @@ ctrl+a  选择全部，添加后如下图：
 
 ![](img/chapter06/1.3.13.png) 
 
-bsp组是我们编写的控制ELink407开发板的具体设备驱动文件，在我们的新工程中留空，以后将目录\基础实验\bsp4Elink\src的文件添加到该组，添加user文件main.c，源文件所在目录为：\基础实验\project\firstPrj\MDK\user
+bsp组是我们编写的控制ELink407开发板的具体设备驱动文件，在我们的新工程中留空，以后将目录\基础实验\bsp4ELink\src的文件添加到该组，添加user文件main.c，源文件所在目录为：\基础实验\project\firstPrj\MDK\user
 
 ![](img/chapter06/1.3.14.png) 
 
@@ -1033,7 +1033,7 @@ bsp组是我们编写的控制ELink407开发板的具体设备驱动文件，在
 添加头文件，设置头文件存放路径。也就是告诉 MDK 到那些目录下面去寻找包含了的头文件。这一步骤非常重要。如果没有设置头文件路径，那么工程会出现报错头文件路径找不到，添加相应的头文件路径:
 
         基础实验\project\firstPrj\MDK\user
-        基础实验\bsp4Elink\inc
+        基础实验\bsp4ELink\inc
         STM32_Lib\STM32F4xx_DSP_StdPeriph_Lib\Libraries\STM32F4xx_StdPeriph_Driver\inc
         STM32_Lib\STM32F4xx_DSP_StdPeriph_Lib\Libraries\CMSIS\Device\ST\STM32F4xx\Include
         
@@ -1059,7 +1059,7 @@ bsp组是我们编写的控制ELink407开发板的具体设备驱动文件，在
 IAR Embedded Workbench for ARM version  是一个针对ARM  处理器的集成开发环境，包含项目管理器、编辑器、编译连接工具和支持RTOS  的调试工具，在该环境下可以使用C/C++和汇编语言方便地开发嵌入式应用程序。对于30余种不同架构的处理器，IAR Embedded Workbench提供统一的使用界面，是一个真正的集成开发环境；方便了从8位/16位处理器转向ARM的用户。
 ### IAR for ARM 安装 ###
 
-在Elink407\tools\EWARM目录下找到安装软件。 
+在ELink407\tools\EWARM目录下找到安装软件。 
 
     CD-EWARM-6301-3142.zip  ：安装文件 
     EWARM-6310-3142-CRACK.zip  ：软件注册机 
@@ -1100,7 +1100,7 @@ IAR Embedded Workbench for ARM version  是一个针对ARM  处理器的集成�
 
 14、 点击“Finish”按钮。安装成功结束。
 
-### 使用IAR for ARM进行Elink407软件开发
+### 使用IAR for ARM进行ELink407软件开发
 
 ### 第一个工程 ###
 

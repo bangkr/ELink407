@@ -405,7 +405,7 @@
 #if defined(STM32F411xE)
 #define PLL_N      400
 /* SYSCLK = PLL_VCO / PLL_P */
-#define PLL_P      4   
+#define PLL_P      2//4   
 #endif /* STM32F411xx */
 
 /******************************************************************************/
