@@ -244,8 +244,8 @@
       <Focus>0</Focus>
       <ColumnNumber>27</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>380</TopLine>
-      <CurrentLine>381</CurrentLine>
+      <TopLine>362</TopLine>
+      <CurrentLine>375</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\..\STM32_Lib\STM32F4xx_DSP_StdPeriph_Lib\Libraries\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c</PathWithFileName>
       <FilenameWithoutPath>system_stm32f4xx.c</FilenameWithoutPath>
@@ -322,10 +322,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>57</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>27</TopLine>
-      <CurrentLine>1</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>10</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\bsp4Elink\src\led.c</PathWithFileName>
       <FilenameWithoutPath>led.c</FilenameWithoutPath>
